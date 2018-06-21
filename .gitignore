@@ -1,0 +1,5 @@
+config.js
+etc.txt
+node_modules
+persist-*
+sessions

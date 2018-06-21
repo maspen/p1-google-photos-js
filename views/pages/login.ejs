@@ -1,0 +1,52 @@
+<!doctype html> jquery<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- material design lite -->
+    <link rel="stylesheet" href="/mdlite/material.indigo-pink.min.css">
+    <script src="/mdlite/material.min.js"></script>
+    <link rel="stylesheet" href="/css/frame.css">
+    <title>Photo Frame Sampple</title>
+  </head>
+
+  <body style="background-color: #3F51B5">
+    <header class="demo-header mdl-layout__header--fixed-header mdl-color--primary mdl-color-text--white">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Photo Frame Sample</span>
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable is-upgraded" data-upgraded=",MaterialTextField"></div>
+      </div>
+    </header>
+
+    <main class="demo-main mdl-layout__content">
+      <div class="page-content mdl-grid">
+        <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-table mdl-cell--hide-photo"></div>
+        <div class="demo-content mdl-color--white mdl-shadow--4p mdl-colo-text--grey-800 mdl-cell mdl-cell--8-col">
+          <div class="login-img">
+            <img src="/imgs/Photo-frame-illustration.png" alt="Photo frame illustration">
+          </div>
+          <h3>Set up your Photo Frame</h3>
+          <p>Put your favourite moments on display. To get set up, connect Photo Frame to your photo library</p>
+          <p>
+            <button class="gp-button raised" id="login">
+              Connect to Google Photos
+            </button>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/jquery.slim.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#login').on('click', function(e) {
+        // make request to backend to log in
+        console.log('*** login.ejs, login btn clicked, redirecting to /auth/google');
+        window.location = '/auth/google';
+      })
+    });
+  </script>
+
+  </body>
+</html>
