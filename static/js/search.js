@@ -112,6 +112,17 @@ $(document).ready(() => {
   $('#filter').on('submit', (e) => {
     e.preventDefault();
     showLoadingDialog();
+
+    console.log('*** search.js submit() e.target', e.target);
+    console.log('*** serializeArray', $(this).serializeArray());
+    console.log('*** serialize', $(this).serialize());
+
+    console.log('*** checked length:', $( "input:checked" ).length);
+    console.log('*** checked val:', $( "input:checked" ).each(function(){
+      // var label = $(this).next();
+      return $(this).next();
+    }));
+
     //importFilter($('#filter').serialize())
     // asyncAjaxImportFilter($('#filter').serialize())
     ajaxPromizeImportFilter($('#filter').serialize());

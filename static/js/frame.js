@@ -12,6 +12,9 @@ function clearPreview() {
 function showPreview(source, mediaItems) {
   $('#images-container').empty();
 
+  console.log('*** frame.js showPreview() source: ', JSON.stringify(source));
+  console.log('*** frame.js showPreview() mediaItems: ', JSON.stringify(mediaItems));
+
   // display length & src of item if set
   if (source && mediaItems) {
     $('#images-count').text(mediaItems.length);
@@ -36,16 +39,18 @@ function showPreview(source, mediaItems) {
   $.each(mediaItems, (i, item) => {
     // construct thumbnail URL from item's base URL at small pixel size
     const thumbnailUrl = `${item.baseUrl}=w256-h256`;
+    console.log('thumbnailUrl:', thumbnailUrl);
     // construct URL to image in its original size based on its width & height
     const fullUrl = 
       `${item.baseUrl}=w${item.mediaMetadata.width}-h${item.mediaMetadata.height}`;
+    console.log('fullUrl:', fullUrl);
 
     // compile caption from description, model & time
     const description = item.description ? item.description : '';
     const model = item.mediaMetadata.photo.cameraModel ?
       `#Shot on ${item.mediaMetadata.photo.cameraModel}` : '';
     const time = item.mediaMetadata.creationTime;
-    const caption = `${description} ${model} (${time})`
+    const captionText = `${description} ${model} (${time})`
 
     // each img is wrapped by link for fancybox gallery
     // data-width/data-height attributes are set to the
@@ -73,6 +78,7 @@ function showPreview(source, mediaItems) {
       $('<figcaption />')
       .addClass('hidden')
       .text(captionText);
+
     const linkToGooglePhotos =
       $('<a />')
       .attr('href', item.productUrl)
@@ -95,21 +101,21 @@ function loadQueue() {
   showLoadingDialog();
   $.ajax({
     type: 'GET',
-    // crossOrigin: true,
-    // url: '/getQueue',
+    // url: '/getQueue', // has to be full URL:
     url: 'http://127.0.0.1:8080/getQueue',
     dataType: 'json',
-    timeout:  0, // no time out
-    // dataType: 'jsonp', // http://127.0.0.1:8080/getQueue?callback=jQuery331032808401843583734_1529455299349&_=1529455299350
+    timeout:  0, // no time out - allows for index.js. /getQueue to complete, else get errors in console
     success: (data) => {
       // queue has been loaded. display media items as grid on screen
+      console.log('*** frame.js ajax.success(data): ', data);
+
       hideLoadingDialog();
       showPreview(data.parameters, data.photos);
       hideLoadingDialog();
-
-      console.log('*** frame.js loadQueue, loaded queue');
     },
     error: (data) => {
+      console.log('*** frame.js ajax.error(error): ', error);
+
       hideLoadingDialog();
 
       console.log('*** frame.js did NOT loaded queue, error: ', JSON.stringify(data));
